@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar Restaurante La Estación</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --bg: #f0ede8;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --ink2: #555555;
+  --ink3: #999999;
+  --accent: #e8380d;
+  --accent2: #ffd700;
+  --line: rgba(0,0,0,.1);
+  --pill: #e4e0da;
+  --radius-sm: 12px;
+  --radius-lg: 20px;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--ink);
+  color: white;
+  padding: 0 clamp(20px, 5vw, 60px);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 100px;
+  position: relative;
+}
+
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 24px 0;
+}
+
+.header-brand .eyebrow {
+  font-family: var(--font-body);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+
+.header-brand h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+}
+
+.header-badge .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .6; transform: scale(1.3); }
+}
+
+.header-badge span {
+  font-size: .8rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.nav-scroll {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  padding: 0 clamp(16px, 4vw, 60px);
+}
+
+.nav-scroll::-webkit-scrollbar { display: none; }
+
+.nav-scroll a {
+  flex-shrink: 0;
+  text-decoration: none;
+  color: rgba(255,255,255,.45);
+  font-family: var(--font-display);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 18px 20px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  white-space: nowrap;
+}
+
+.nav-scroll a:hover,
+.nav-scroll a.active {
+  color: white;
+  border-bottom-color: var(--accent);
+}
+
+/* ── LAYOUT ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 40px);
+}
+
+/* ── SECTION ── */
+.section {
+  padding: 72px 0 0;
+  margin-bottom: 72px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+
+.section-head .section-count {
+  font-family: var(--font-display);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  padding-bottom: 4px;
+}
+
+/* ── SUBSECCIÓN ── */
+.sub-label {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin: 40px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sub-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ── GRID DE ITEMS (tapas, bocadillos, etc.) ── */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 2px;
+}
+
+.item-card {
+  background: var(--surface);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: background .15s;
+  border-radius: 0;
+}
+
+.item-card:hover {
+  background: #faf8f5;
+}
+
+/* Bordes redondeados en esquinas del grid */
+.items-grid .item-card:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.items-grid .item-card:nth-child(2) { border-radius: 0 var(--radius-sm) 0 0; }
+.items-grid .item-card:last-child:nth-child(even) { border-radius: 0 0 var(--radius-sm) 0; }
+.items-grid .item-card:last-child:nth-child(odd) { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+
+.item-info { flex: 1; min-width: 0; }
+
+.item-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.item-desc {
+  font-size: .82rem;
+  color: var(--ink3);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.item-price {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── LISTA DE BEBIDAS ── */
+.drink-list {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.drink-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line);
+  transition: background .15s;
+}
+
+.drink-row:last-child { border-bottom: none; }
+
+.drink-row:hover { background: #faf8f5; }
+
+.drink-name {
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+}
+
+.drink-sub {
+  font-size: .78rem;
+  color: var(--ink3);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.drink-left { flex: 1; }
+
+.drink-price {
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── NOTA / AVISO ── */
+.note {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: .82rem;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+
+.note strong { color: var(--ink); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  color: white;
+  padding: 60px clamp(16px, 4vw, 60px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+
+.footer-brand h3 {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  margin-bottom: 8px;
+}
+
+.footer-brand p {
+  font-size: .875rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.8;
+}
+
+.footer-contact {
+  text-align: right;
+  font-size: .82rem;
+  color: rgba(255,255,255,.4);
+  line-height: 1.8;
+}
+
+.footer-contact a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .header { flex-direction: column; gap: 0; padding: 0 20px; }
+  .header-badge { padding: 0 0 20px; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .items-grid { grid-template-columns: 1fr; }
+  .items-grid .item-card:first-child { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+  .items-grid .item-card:nth-child(2) { border-radius: 0; }
+  .items-grid .item-card:last-child { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+  footer { grid-template-columns: 1fr; }
+  .footer-contact { text-align: left; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-brand">
+    <span class="eyebrow">Bar · Restaurante · Sant Pere del Molí</span>
+    <h1>La Estación</h1>
+  </div>
+  <div class="header-badge">
+    <div class="dot"></div>
+    <span>Abierto ahora</span>
+  </div>
+</header>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-scroll">
+    <a href="#tapas">Tapas</a>
+    <a href="#bocadillos">Bocadillos</a>
+    <a href="#ensaladas">Ensaladas</a>
+    <a href="#combinados">Combinados</a>
+    <a href="#postres">Postres</a>
+    <a href="#bebidas">Bebidas</a>
+    <a href="#cafes">Cafés</a>
+    <a href="#copas">Copas</a>
+    <a href="#vinos">Vinos</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ── TAPAS ── -->
+  <section id="tapas" class="section">
+    <div class="section-head">
+      <h2>Tapas</h2>
+      <span class="section-count">17 platos</span>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><div class="item-info"><div class="item-name">Berenjenas Crujientes</div></div><div class="item-price">4,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Yuca Frita</div></div><div class="item-price">4,40 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Patatas Volcánicas</div></div><div class="item-price">6,30 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">½ Patatas Bravas</div></div><div class="item-price">3,15 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Lágrimas de Pavo</div></div><div class="item-price">7,20 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Costillas BBQ</div></div><div class="item-price">7,80 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">½ Costillas BBQ</div></div><div class="item-price">3,90 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Brochetas Campesinas</div></div><div class="item-price">7,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Longaniza Artesana</div></div><div class="item-price">7,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Croquetas de Setas</div></div><div class="item-price">8,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Langostinos Rebozados</div></div><div class="item-price">8,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Sepia al Ajillo</div></div><div class="item-price">10,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Anillas de Cebolla Premium</div></div><div class="item-price">7,90 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Tabla Ibérica Especial</div></div><div class="item-price">13,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Selección de Bries</div></div><div class="item-price">10,20 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Patatas Bolsa</div></div><div class="item-price">1,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Olivas Partidas Aliñadas</div></div><div class="item-price">1,50 €</div></div>
+    </div>
+  </section>
+
+  <!-- ── BOCADILLOS ── -->
+  <section id="bocadillos" class="section">
+    <div class="section-head">
+      <h2>Bocadillos</h2>
+      <span class="section-count">14 opciones</span>
+    </div>
+
+    <div class="sub-label">Fríos</div>
+    <div class="items-grid">
+      <div class="item-card"><div class="item-info"><div class="item-name">Brie</div></div><div class="item-price">5,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Pastrami</div></div><div class="item-price">5,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Salami Picante</div></div><div class="item-price">4,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Salmón Ahumado</div></div><div class="item-price">4,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Vegetal de Salmón Ahumado</div><div class="item-desc">Con huevo, tomate y lechuga</div></div><div class="item-price">5,50 €</div></div>
+    </div>
+
+    <div class="sub-label">Calientes</div>
+    <div class="items-grid">
+      <div class="item-card"><div class="item-info"><div class="item-name">Mixto Especial</div></div><div class="item-price">3,80 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Revuelto de Quesos</div></div><div class="item-price">5,30 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Tortilla</div></div><div class="item-price">8,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Pechuga Marinada</div></div><div class="item-price">5,20 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Vegetal de Pechuga Marinada</div></div><div class="item-price">5,80 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Ternera Asada</div></div><div class="item-price">5,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Serranito</div></div><div class="item-price">7,80 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Brochetas Campesinas</div></div><div class="item-price">6,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Secreto Ibérico Ahumada</div></div><div class="item-price">5,30 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Bratwurst</div></div><div class="item-price">5,30 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Chorizo Criollo</div></div><div class="item-price">5,60 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Longaniza Artesana</div></div><div class="item-price">5,60 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Burger Gourmet</div></div><div class="item-price">5,70 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Secreto Ibérico</div></div><div class="item-price">6,10 €</div></div>
+    </div>
+
+    <div class="note">
+      <strong>Suplementos:</strong> Secreto Ibérico Ahumada, Brie, Cebolla, Pimiento, Huevo, Tomate <strong>+0,80 €</strong> &nbsp;·&nbsp; Chorizo Criollo <strong>+3,50 €</strong> &nbsp;·&nbsp; Pan Tomate <strong>+1,00 €</strong> &nbsp;·&nbsp; Pan Sin Gluten <strong>+1,50 €</strong>
+    </div>
+  </section>
+
+  <!-- ── ENSALADAS ── -->
+  <section id="ensaladas" class="section">
+    <div class="section-head">
+      <h2>Ensaladas</h2>
+      <span class="section-count">2 opciones</span>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><div class="item-info"><div class="item-name">Ensalada de Salmón Ahumado</div></div><div class="item-price">6,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Ensalada Tropical</div></div><div class="item-price">9,50 €</div></div>
+    </div>
+  </section>
+
+  <!-- ── COMBINADOS ── -->
+  <section id="combinados" class="section">
+    <div class="section-head">
+      <h2>Platos Combinados</h2>
+      <span class="section-count">13 platos</span>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><div class="item-info"><div class="item-name">Revuelto de Quesos</div></div><div class="item-price">4,20 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Anillas de Cebolla Premium</div></div><div class="item-price">12,30 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Sepia al Ajillo</div></div><div class="item-price">17,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Langostinos Rebozados</div></div><div class="item-price">15,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Pechuga Marinada</div></div><div class="item-price">9,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Nuggets</div></div><div class="item-price">11,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Ternera Asada</div></div><div class="item-price">11,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Brochetas Campesinas</div></div><div class="item-price">12,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Bratwurst</div></div><div class="item-price">10,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Chorizo Criollo</div></div><div class="item-price">11,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Longaniza Artesana</div></div><div class="item-price">11,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Burger Gourmet</div></div><div class="item-price">14,00 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Secreto Ibérico</div></div><div class="item-price">12,50 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Cabeza de Ternera Asada</div></div><div class="item-price">14,50 €</div></div>
+    </div>
+    <div class="note">
+      <strong>Todos los platos incluyen</strong> patatas fritas, huevo frito y ensalada.
+    </div>
+  </section>
+
+  <!-- ── POSTRES ── -->
+  <section id="postres" class="section">
+    <div class="section-head">
+      <h2>Postres</h2>
+      <span class="section-count">3 opciones</span>
+    </div>
+    <div class="items-grid">
+      <div class="item-card"><div class="item-info"><div class="item-name">Brownie de Chocolate</div></div><div class="item-price">2,90 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Tarta de Limón</div></div><div class="item-price">2,90 €</div></div>
+      <div class="item-card"><div class="item-info"><div class="item-name">Tarta Brie</div></div><div class="item-price">3,10 €</div></div>
+    </div>
+  </section>
+
+  <!-- ── BEBIDAS ── -->
+  <section id="bebidas" class="section">
+    <div class="section-head">
+      <h2>Bebidas</h2>
+    </div>
+
+    <div class="sub-label">Aguas y Refrescos</div>
+    <div class="drink-list">
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Agua Grande Viladrau 1,5 l</div></div><div class="drink-price">2,20 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Agua Pequeña Font Vella 0,5 l</div></div><div class="drink-price">1,30 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Agua Vichy 0,33 l</div></div><div class="drink-price">2,10 €</div></div>
+      <div class="drink-row">
+        <div class="drink-left">
+          <div class="drink-name">Aquarius, Coca-Cola, Fanta, Nestea... 0,33 l</div>
+          <div class="drink-sub">Aquarius (Limón, Naranja o Melocotón Rojo), Coca-Cola, Coca-Cola Zero, Nestea, Fuse Tea, Fanta Limón o Naranja</div>
+        </div>
+        <div class="drink-price">2,30 €</div>
+      </div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Bitter Kas</div></div><div class="drink-price">2,20 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Tónica</div></div><div class="drink-price">2,20 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Zumo Granini</div></div><div class="drink-price">2,20 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Zumo Natural Naranja</div></div><div class="drink-price">2,60 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Red Bull</div></div><div class="drink-price">3,10 €</div></div>
+    </div>
+
+    <div class="sub-label">Cervezas</div>
+    <div class="drink-list">
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Victoria 0,33 l</div></div><div class="drink-price">2,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">San Miguel 0,33 l</div></div><div class="drink-price">2,20 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Estrella Damm — Quinto / Mediana</div></div><div class="drink-price">1,90 € / 2,30 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Voll Damm 0,33 l</div></div><div class="drink-price">2,60 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Alhambra 1925 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">La Milnueve 1906 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Heineken 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Corona 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Daura Damm 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Estrella Damm — Caña / Copa / Jarra</div></div><div class="drink-price">1,80 € / 2,20 € / 3,70 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Turia — Caña / Copa / Jarra</div></div><div class="drink-price">1,90 € / 2,30 € / 3,80 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Free Damm 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Clara / Clara Pequeña</div></div><div class="drink-price">2,30 € / 2,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Free Damm Lemon 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Free Damm Tostada 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Bohemia Damm 0,33 l</div></div><div class="drink-price">2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">La Milnueve 1906 Vintage 0,33 l</div></div><div class="drink-price">2,80 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Sprite 0,33 l</div></div><div class="drink-price">2,30 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Stella Artois 0,33 l</div></div><div class="drink-price">3,50 €</div></div>
+    </div>
+  </section>
+
+  <!-- ── CAFÉS ── -->
+  <section id="cafes" class="section">
+    <div class="section-head">
+      <h2>Cafés e Infusiones</h2>
+    </div>
+    <div class="drink-list">
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Café con Leche — Normal o Descafeinado</div></div><div class="drink-price">1,70 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cortado — Normal o Descafeinado</div></div><div class="drink-price">1,60 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Café Solo — Normal o Descafeinado</div></div><div class="drink-price">1,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Café Bombón</div></div><div class="drink-price">1,60 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Café Americano</div></div><div class="drink-price">1,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Carajillo</div></div><div class="drink-price">2,40 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">ColaCao</div></div><div class="drink-price">1,90 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cacaolat</div></div><div class="drink-price">2,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Mini Bocadillo</div></div><div class="drink-price">1,30 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Mini Crusan</div></div><div class="drink-price">0,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Limón Entero</div></div><div class="drink-price">1,00 €</div></div>
+      <div class="drink-row">
+        <div class="drink-left">
+          <div class="drink-name">Infusiones</div>
+          <div class="drink-sub">Manzanilla · Tila · Menta-Poleo · Jengibre-Limón · Frutas del Bosque · Mediterráneo · Menta Árabe · English Breakfast</div>
+        </div>
+        <div class="drink-price">1,90 €</div>
+      </div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Con hielo</div></div><div class="drink-price">+ 0,20 €</div></div>
+    </div>
+  </section>
+
+  <!-- ── COPAS ── -->
+  <section id="copas" class="section">
+    <div class="section-head">
+      <h2>Combinados y Copas</h2>
+    </div>
+    <div class="drink-list">
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Chupito Sin Alcohol — Manzana</div></div><div class="drink-price">1,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Licor con Alcohol — Chupito / Copa / Tubo</div></div><div class="drink-price">2,00 € / 2,50 € / 4,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Whisky — Chupito / Copa</div></div><div class="drink-price">2,50 € / 3,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Combinado Licor</div></div><div class="drink-price">7,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Combinado Whisky</div></div><div class="drink-price">7,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Suplemento Red Bull</div></div><div class="drink-price">+ 1,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Crusan</div></div><div class="drink-price">1,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Gin Tonic</div></div><div class="drink-price">7,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Tubo Whisky</div></div><div class="drink-price">5,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Mojito de Fresa</div></div><div class="drink-price">5,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Sangría Especial</div></div><div class="drink-price">3,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vermut Blanco — Copa</div></div><div class="drink-price">3,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vermut Negro — Copa</div></div><div class="drink-price">3,60 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cubata Licor</div></div><div class="drink-price">7,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cubata Whisky</div></div><div class="drink-price">7,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cubata + Red Bull</div></div><div class="drink-price">8,00 €</div></div>
+    </div>
+  </section>
+
+  <!-- ── VINOS ── -->
+  <section id="vinos" class="section">
+    <div class="section-head">
+      <h2>Vinos y Cavas</h2>
+    </div>
+    <div class="drink-list">
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino de la Casa — Copa</div></div><div class="drink-price">1,90 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Blanco Laus — Botella / Copa</div></div><div class="drink-price">12,00 € / 2,20 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Tinto Laus — Botella / Copa</div></div><div class="drink-price">13,00 € / 2,30 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Tinto Rioja 828 — Botella / Copa</div></div><div class="drink-price">12,50 € / 2,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Tinto Reserva Murillo Viteri — Botella / Copa</div></div><div class="drink-price">20,00 € / 5,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Tinto Ribera del Duero Portia — Botella</div></div><div class="drink-price">14,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Porto Offley — Botella / Copa</div></div><div class="drink-price">21,00 € / 4,50 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Vino Caliente — Taza</div></div><div class="drink-price">2,80 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cava Castell D'Or — Botella</div></div><div class="drink-price">11,00 €</div></div>
+      <div class="drink-row"><div class="drink-left"><div class="drink-name">Cava JP. Chenet — Botella / Copa</div></div><div class="drink-price">21,00 € / 5,00 €</div></div>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-brand">
+    <h3>La Estación</h3>
+    <p>Bar · Restaurante · Sant Pere del Molí</p>
+  </div>
+  <div class="footer-contact">
+    Avinguda del Mercat, 12<br>
+    08788 Sant Pere del Molí, Barcelona<br>
+    <a href="tel:+34664630127">+34 611 22 33 44</a>
+  </div>
+</footer>
+
+<script>
+// Nav active highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-scroll a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-scroll a[href="#${entry.target.id}"]`);
+      if (active) {
+        active.classList.add('active');
+        active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
