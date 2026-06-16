@@ -1,0 +1,20 @@
+[
+  {
+    "nombre": "La Tasca",
+    "slug": "la-tasca",
+    "url": "templates/la-tasca/index.html",
+    "categoria": "tapas"
+  },
+  {
+    "nombre": "Sushi Bar",
+    "slug": "sushi-bar",
+    "url": "templates/sushi-bar/index.html",
+    "categoria": "japonés"
+  },
+  {
+    "nombre": "Pizzería Napoli",
+    "slug": "pizzeria-napoli",
+    "url": "templates/pizzeria-napoli/index.html",
+    "categoria": "italiano"
+  }
+]
