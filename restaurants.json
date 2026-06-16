@@ -4,5 +4,11 @@
     "slug": "la-estacion",
     "url": "templates/la-estacion/index.html",
     "categoria": ""
+  },
+  {
+    "nombre": "La Taula",
+    "slug": "la-taula",
+    "url": "templates/la-taula/index.html",
+    "categoria": ""
   }
 ]
